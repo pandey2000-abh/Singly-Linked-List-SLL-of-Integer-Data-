@@ -1,0 +1,156 @@
+
+#include<stdio.h>  
+#include<stdlib.h>  
+void create(int);  
+void search();  
+struct node  
+{  
+    int data;  
+    struct node *next;  
+};  
+struct node *head;  
+void main ()  
+{  
+    int choice,item,loc;  
+    do   
+    {  
+        printf("\n1.Create\n2.Search\n3.Exit\n4.Enter your choice?");  
+        scanf("%d",&choice);  
+        switch(choice)  
+        {  
+            case 1:  
+            printf("\nEnter the item\n");  
+            scanf("%d",&item);  
+            create(item);  
+            break;   
+            case 2:  
+            search();  
+            case 3:  
+            exit(0);  
+            break;    
+            default:  
+            printf("\nPlease enter valid choice\n");  
+        }  
+                  
+    }while(choice != 3);  
+}  
+    void create(int item)  
+    {  
+        struct node *ptr = (struct node *)malloc(sizeof(struct node *));  
+        if(ptr == NULL)  
+        {  
+            printf("\nOVERFLOW\n");  
+        }  
+        else  
+        {  
+            ptr->data = item;  
+            ptr->next = head;  
+            head = ptr;  
+            printf("\nNode inserted\n");  
+        }  
+          
+    }  
+void search()  
+{  
+    struct node *ptr;  
+    int item,i=0,flag;  
+    ptr = head;   
+    if(ptr == NULL)  
+    {  
+        printf("\nEmpty List\n");  
+    }  
+    else  
+    {   
+        printf("\nEnter item which you want to search?\n");   
+        scanf("%d",&item);  
+        while (ptr!=NULL)  
+        {  
+            if(ptr->data == item)  
+            {  
+                printf("item found at location %d ",i+1);  
+                flag=0;  
+            }   
+            else  
+            {  
+                flag=1;  
+            }  
+            i++;  
+            ptr = ptr -> next;  
+        }  
+        if(flag==1)  
+        {  
+            printf("Item not found\n");  
+        }  
+    }     
+          
+}  
+
+----Create a SLL queue of N Students Data Concatenation of two SLL of integers.----- 
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node
+{
+    int data;
+    struct Node *next;
+} *temp = NULL, *first = NULL, *second = NULL;
+
+struct Node* Create(int A[], int n)
+{
+    int i;
+    struct Node *t, *last;
+    temp = (struct Node *) malloc(sizeof(struct Node));
+    temp->data = A[0];
+    temp->next = NULL;
+    last = temp;
+
+    for (i = 1; i < n; i++)
+    {
+        t = (struct Node *) malloc(sizeof(struct Node));
+        t->data = A[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+    return temp;
+}
+
+void Display(struct Node *p)
+{
+    while (p != NULL)
+    {
+        printf ("%d ", p->data);
+        p = p->next;
+    }
+}
+
+
+void Concat(struct Node *first, struct Node *second)
+{
+    struct Node *p = first;
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    p->next = second;
+    second = NULL;
+}
+
+int main()
+{
+    int A[] = { 9, 7, 4, 3 };
+    int B[] = { 2, 5, 6, 8 };
+    first = Create(A, 4);
+    second = Create(B, 4);
+
+    printf ("1st Linked List: ");
+    Display (first);
+    printf ("\n2nd Linked List: ");
+    Display (second);
+    Concat (first, second);
+    printf ("\n\nConcantenated Linked List: \n");
+    Display (first);
+    return 0;
+}
+
+
